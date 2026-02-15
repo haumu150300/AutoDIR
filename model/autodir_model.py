@@ -11,7 +11,7 @@ from ldm.util import (count_params, default, exists, instantiate_from_config,
                       isimage, ismap, log_txt_as_img, mean_flat)
 from torch.optim.lr_scheduler import CosineAnnealingLR
 from torchvision.utils import make_grid
-from transformers import CLIPFeatureExtractor, CLIPModel, CLIPTokenizer
+from transformers import CLIPImageProcessor, CLIPModel, CLIPTokenizer
 
 from stable_diffusion.ldm.models.diffusion.ddpm_edit import LatentDiffusion
 from stable_diffusion.ldm.util import default
@@ -68,7 +68,7 @@ class CLIPEmbedder(AbstractEncoder):
         self.clipmodel = CLIPModel.from_pretrained(version)
         self.device = device
         self.max_length = max_length
-        self.processor = CLIPFeatureExtractor.from_pretrained(version)
+        self.processor = CLIPImageProcessor.from_pretrained(version)
         self.clipmodel.eval()
 
     def forward(self, image, text):
